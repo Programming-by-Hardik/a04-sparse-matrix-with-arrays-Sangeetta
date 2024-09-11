@@ -1,39 +1,53 @@
-// sparse_matrix_assignment.c
-// This program represents a sparse matrix using a 2D array in C and includes test cases.
+// pointers_assignment.c
+// This program implements three functions using pointers: swap, findMax, and reverseArray.
 
 #include <stdio.h>
 #include <stdbool.h>
 
-#define MAX 100  // Maximum number of non-zero elements in the sparse matrix
-#define N 4      // Number of columns in the original matrix (modifiable)
-
 // Function prototypes
-void createSparseMatrix(int sparseMatrix[][3], int originalMatrix[][N], int rows, int cols);
-void printSparseMatrix(int sparseMatrix[][3], int nonZeroCount);
-bool testCreateSparseMatrix();
-bool testPrintSparseMatrix();
+void swap(int *a, int *b);
+int findMax(int *arr, int length);
+void reverseArray(int *arr, int length);
+
+// Test functions
+bool testSwap();
+bool testFindMax();
+bool testReverseArray();
 
 int main() {
-    // Run test cases
-    if (testCreateSparseMatrix()) {
-        printf("testCreateSparseMatrix PASSED\n");
+    // Run tests
+    if (testSwap()) {
+        printf("testSwap PASSED\n");
     } else {
-        printf("testCreateSparseMatrix FAILED\n");
+        printf("testSwap FAILED\n");
     }
 
-    if (testPrintSparseMatrix()) {
-        printf("testPrintSparseMatrix PASSED\n");
+    if (testFindMax()) {
+        printf("testFindMax PASSED\n");
     } else {
-        printf("testPrintSparseMatrix FAILED\n");
+        printf("testFindMax FAILED\n");
+    }
+
+    if (testReverseArray()) {
+        printf("testReverseArray PASSED\n");
+    } else {
+        printf("testReverseArray FAILED\n");
     }
 
     return 0;
 }
 
-// Function to convert a matrix into sparse matrix format
-void createSparseMatrix(int sparseMatrix[][3], int originalMatrix[][N], int rows, int cols) {
-    //WRITE THE FUNCTION DESCRIPTION HERE
-    
+//---------------------------------
+// COMPLETE THE FUNCTION DEFINITIONS BELOW 
+//---------------------------------
+
+
+// Function to swap two integers using pointers
+void swap(int *a, int *b) {
+    //Write the function description
+int temp = *a;
+    *a = *b;
+    *b = temp;
 
 
 
@@ -44,74 +58,89 @@ void createSparseMatrix(int sparseMatrix[][3], int originalMatrix[][N], int rows
 
 }
 
-// Function to print sparse matrix representation
-void printSparseMatrix(int sparseMatrix[][3], int nonZeroCount) {
-    //WRITE THE FUNCTION DESCRIPTION HERE
-    
-
-
-
-
-
-
-
-
-}
-
-//--------------------------------------------------------
-//DON'T CHANGE THE CODE BELOW THIS!
-//--------------------------------------------------------
-// TEST CASES
-
-// Test function for createSparseMatrix
-bool testCreateSparseMatrix() {
-    int originalMatrix[4][N] = {
-        {0, 0, 3, 0},
-        {0, 4, 0, 0},
-        {0, 0, 0, 5},
-        {0, 2, 0, 6}
-    };
-
-    int expectedSparseMatrix[MAX][3] = {
-        {4, 4, 5},   // 4x4 matrix with 5 non-zero elements
-        {0, 2, 3},   // Original matrix[0][2] = 3
-        {1, 1, 4},   // Original matrix[1][1] = 4
-        {2, 3, 5},   // Original matrix[2][3] = 5
-        {3, 1, 2},   // Original matrix[3][1] = 2
-        {3, 3, 6}    // Original matrix[3][3] = 6
-    };
-
-    int sparseMatrix[MAX][3];
-    createSparseMatrix(sparseMatrix, originalMatrix, 4, N);
-
-    // Compare the sparseMatrix with the expectedSparseMatrix
-    for (int i = 0; i <= expectedSparseMatrix[0][2]; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (sparseMatrix[i][j] != expectedSparseMatrix[i][j]) {
-                return false;  // If any value doesn't match, test fails
-            }
+// Function to find the maximum value in an array using pointers
+int findMax(int *arr, int length) {
+    //Write the fucntion description 
+ int max = *arr;
+    for (int i = 1; i < length; i++) {
+        if (*(arr + i) > max) {
+            max = *(arr + i);
         }
     }
+    return max;
 
-    return true;  // Test passes if all values match
+
+
+
+
+
+
+  
 }
 
-// Test function for printSparseMatrix
-bool testPrintSparseMatrix() {
-    // Define a sparse matrix with 5 non-zero elements
-    int sparseMatrix[MAX][3] = {
-        {4, 4, 5},   // 4x4 matrix with 5 non-zero elements
-        {0, 2, 3},   // Original matrix[0][2] = 3
-        {1, 1, 4},   // Original matrix[1][1] = 4
-        {2, 3, 5},   // Original matrix[2][3] = 5
-        {3, 1, 2},   // Original matrix[3][1] = 2
-        {3, 3, 6}    // Original matrix[3][3] = 6
-    };
+// Function to reverse an array using pointers
+void reverseArray(int *arr, int length) {
+    //Write the function description 
+ int *start = arr;
+    int *end = arr + length - 1;
+    while (start < end) {
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+        start++;
+        end--;
+    }
 
-    // Simulate a successful print (visual inspection may be needed for testing this)
-    printf("Expected Sparse Matrix Output:\n");
-    printSparseMatrix(sparseMatrix, sparseMatrix[0][2]);
 
-    // Since printSparseMatrix only prints the output, we assume it passes if the format is correct
+
+
+
+
+
+}
+
+//---------------------------------
+// TEST CASES - Don't change the code below this.
+//---------------------------------
+
+// Test case for swap function
+bool testSwap() {
+    int x = 5, y = 10;
+    swap(&x, &y);
+
+    if (x == 10 && y == 5) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Test case for findMax function
+bool testFindMax() {
+    int arr[] = {3, 1, 4, 1, 5, 9, 2, 6, 5};
+    int length = sizeof(arr) / sizeof(arr[0]);
+    int maxValue = findMax(arr, length);
+
+    if (maxValue == 9) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Test case for reverseArray function
+bool testReverseArray() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int expected[] = {5, 4, 3, 2, 1};
+    int length = sizeof(arr) / sizeof(arr[0]);
+
+    reverseArray(arr, length);
+
+    // Check if the array matches the expected reversed array
+    for (int i = 0; i < length; i++) {
+        if (arr[i] != expected[i]) {
+            return false;
+        }
+    }
     return true;
 }
